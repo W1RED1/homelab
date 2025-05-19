@@ -130,7 +130,7 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
-                    <Description>Launch script to enable OpenSSH server</Description>
+                    <Description>Launch script to perform Windows updates and enable OpenSSH server</Description>
                     <CommandLine>powershell.exe -ep bypass -file D:\Install-WindowsUpdates.ps1</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
