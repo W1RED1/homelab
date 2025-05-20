@@ -6,7 +6,7 @@ Various configs/scripts for automating template build processes
   *  Initial autounattend passwords are randomized on every build
   *  Templates build according to [Windows guest best practices (Proxmox wiki)](https://pve.proxmox.com/mediawiki/index.php?search=Windows+best+practices)
 
-Create a user, role, and token with [minimum permissions](https://github.com/hashicorp/packer-plugin-proxmox/issues/184)
+Create a user, role, and token with [minimum permissions](https://github.com/hashicorp/packer-plugin-proxmox/issues/184)  
 Some build tasks may require additional permissions (YMMV)
 ```
 pveum useradd username@pve
