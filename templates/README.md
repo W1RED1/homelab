@@ -12,5 +12,5 @@ Some build tasks may require additional permissions (YMMV)
 pveum useradd username@pve
 pveum roleadd Packer -privs "VM.Config.Disk VM.Config.CPU VM.Config.Memory Datastore.Allocate Datastore.AllocateSpace Datastore.AllocateTemplate SDN.Use Sys.Modify VM.Config.Options VM.Allocate VM.Audit VM.Console VM.Config.CDROM VM.Config.Network VM.Config.Cloudinit VM.PowerMgmt VM.Config.HWType VM.Monitor"
 pveum aclmod / -user username@pve -role Packer
-pveum user token add username@pve packer --privsep 0
+pveum user token add username@pve tokenname --privsep 0
 ```
