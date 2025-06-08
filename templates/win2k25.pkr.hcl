@@ -2,6 +2,7 @@ source "proxmox-iso" "win2k25" {
   vm_name = "WIN-2K25-TEMPLATE-VM"
   template_name = "WIN-2K25-TEMPLATE"
   template_description = "Windows Server 2025 template generated with packer"
+  pool = "TEMPLATES"
   os = "win11"
   qemu_agent = true
 

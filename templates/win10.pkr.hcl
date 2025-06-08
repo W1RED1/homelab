@@ -2,6 +2,7 @@ source "proxmox-iso" "win10" {
   vm_name = "WIN-10-TEMPLATE-VM"
   template_name = "WIN-10-TEMPLATE"
   template_description = "Windows 10 template generated with packer"
+  pool = "TEMPLATES"
   os = "win10"
   qemu_agent = true
 

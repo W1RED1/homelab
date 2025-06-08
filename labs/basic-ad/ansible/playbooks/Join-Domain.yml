@@ -1,0 +1,15 @@
+- hosts: members
+  tasks:
+    - ansible.windows.win_dns_client:
+         adapter_names: '*'
+         dns_servers: "{{ PDC_IP_ADDR }}"
+
+    - microsoft.ad.membership:
+         dns_domain_name: "{{ DOMAIN_NAME }}"
+         domain_admin_user: "Administrator@{{ DOMAIN_NAME }}"
+         domain_admin_password: "{{ lookup('ansible.builtin.env', 'DEFAULT_DA_USER_PASSWORD') }}"
+         state: domain
+         reboot: true
+
+    -  ansible.windows.win_reboot:
+         post_reboot_delay: 600

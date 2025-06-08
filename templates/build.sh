@@ -11,7 +11,7 @@ wget 'https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi' -q --sho
 
 # generate SSH password for initial configs
 echo '[*] Generating new SSH password...'
-export PKR_VAR_SSH_PASSWORD=$(openssl rand -hex 32)
+export PKR_VAR_SSH_PASSWORD=$(pwgen -sy 25 1)
 
 # write randomly generated password to autounattend file
 echo '[*] Running autounattend update script...'

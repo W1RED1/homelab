@@ -1,0 +1,24 @@
+- hosts: PDC
+  tasks:
+    -  ansible.windows.win_user:
+         name: Administrator
+         password: "{{ lookup('ansible.builtin.env', 'DEFAULT_DA_USER_PASSWORD') }}"
+         password_expired: false
+         account_disabled: false
+         account_locked: false
+         state: present
+
+    -  microsoft.ad.domain:
+         dns_domain_name: "{{ DOMAIN_NAME }}"
+         safe_mode_password: "{{ lookup('ansible.builtin.env', 'DOMAIN_SAFE_MODE_PASSWORD') }}"
+
+    -  ansible.windows.win_reboot:
+         post_reboot_delay: 900
+
+    -  microsoft.ad.domain_controller:
+         dns_domain_name: "{{ DOMAIN_NAME }}"
+         domain_admin_user: "Administrator@{{ DOMAIN_NAME }}"
+         domain_admin_password: "{{ lookup('ansible.builtin.env', 'DEFAULT_DA_USER_PASSWORD') }}"
+         safe_mode_password: "{{ lookup('ansible.builtin.env', 'DOMAIN_SAFE_MODE_PASSWORD') }}"
+         state: domain_controller
+         reboot: true

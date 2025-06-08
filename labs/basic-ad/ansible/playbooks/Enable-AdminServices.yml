@@ -1,0 +1,7 @@
+- hosts: members
+  tasks:
+    -  ansible.windows.win_powershell:
+         script: |
+           Set-NetFirewallRule -DisplayGroup 'Network Discovery' -Profile 'Domain' -Enabled 'True'
+           Set-NetFirewallRule -DisplayGroup 'File and Printer Sharing' -Profile 'Domain' -Enabled 'True'
+           Enable-PSRemoting -Force

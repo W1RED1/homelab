@@ -2,6 +2,7 @@ source "proxmox-iso" "win11" {
   vm_name = "WIN-11-TEMPLATE-VM"
   template_name = "WIN-11-TEMPLATE"
   template_description = "Windows 11 template generated with packer"
+  pool = "TEMPLATES"
   os = "win11"
   qemu_agent = true
 
