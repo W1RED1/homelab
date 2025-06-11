@@ -1,9 +1,9 @@
-source "proxmox-iso" "win10" {
-  vm_name = "WIN-10-TEMPLATE-VM"
-  template_name = "WIN-10-TEMPLATE"
-  template_description = "Windows 10 template generated with packer"
-  pool = "TEMPLATES"
-  os = "win10"
+source "proxmox-iso" "win2k25" {
+  vm_name = "WIN-2K25-TEMPLATE-VM"
+  template_name = "WIN-2K25-TEMPLATE"
+  template_description = "Windows Server 2025 template generated with packer (${var.TEMPLATE_TIMESTAMP})"
+  pool = var.TEMPLATE_POOL
+  os = "win11"
   qemu_agent = true
 
   # communicator config
@@ -13,8 +13,8 @@ source "proxmox-iso" "win10" {
 
   # connection config
   proxmox_url = var.PROXMOX_URL
-  username = var.PROXMOX_USERNAME
-  token = var.PROXMOX_TOKEN
+  username = var.PROXMOX_TOKEN_ID
+  token = var.PROXMOX_TOKEN_SECRET
   insecure_skip_tls_verify = "true"
   node = var.PROXMOX_NODE
 
@@ -41,7 +41,7 @@ source "proxmox-iso" "win10" {
     firewall = true
   }
 
-  # main drive config
+  # main disk config
   scsi_controller = "virtio-scsi-pci"
   disks {
     type = "scsi"
@@ -60,18 +60,17 @@ source "proxmox-iso" "win10" {
 
   # iso configs
   boot_iso {
-    iso_file = "local:iso/Windows-10-eval-amd64.iso"
+    iso_file = "local:iso/Windows-Server-2025-eval-amd64.iso"
     unmount = true    
   }
 
   additional_iso_files {
     cd_files = [
-      "/tmp/virtio/*",
+      "/tmp/win2k25/*",
       "/tmp/CloudbaseInitSetup_Stable_x64.msi",
-      "/tmp/win10/autounattend.xml",
-      "scripts/Install-WindowsUpdates.ps1",
-      "scripts/Install-OpenSSH.ps1",
-      "configs/sshd_config"
+      "../scripts/Install-WindowsUpdates.ps1",
+      "../scripts/Install-OpenSSH.ps1",
+      "../configs/sshd_config"
     ]
     cd_label = "autoinstall"
     iso_storage_pool = "local"
@@ -87,25 +86,25 @@ source "proxmox-iso" "win10" {
 }
 
 build {
-  sources = ["source.proxmox-iso.win10"]
+  sources = ["source.proxmox-iso.win2k25"]
 
   provisioner "powershell" {
-    script = "scripts/Create-InfraUser.ps1"
+    script = "../scripts/Create-InfraUser.ps1"
   }
 
   provisioner "file" {
     sources = [
       "/tmp/CloudbaseInitSetup_Stable_x64.msi",
-      "configs/cloudbase-init-unattend.conf",
-      "configs/cloudbase-unattend.xml",
-      "scripts/Disable-DefaultLocalAdmin.ps1",
-      "scripts/Invoke-CloudbaseInit.cmd"
+      "../configs/cloudbase-init-unattend.conf",
+      "../configs/cloudbase-unattend.xml",
+      "../scripts/Disable-DefaultLocalAdmin.ps1",
+      "../scripts/Invoke-CloudbaseInit.cmd"
     ]
     destination = "C:/Windows/Temp/"
   } 
 
   provisioner "powershell" {
-    script = "scripts/Install-CloudbaseInit.ps1"
+    script = "../scripts/Install-CloudbaseInit.ps1"
   }
 
   provisioner "powershell" {

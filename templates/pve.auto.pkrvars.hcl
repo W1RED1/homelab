@@ -1,4 +1,0 @@
-PROXMOX_URL = "https://127.0.0.1:8006/api2/json"
-PROXMOX_USERNAME = "username@pve!tokenname"
-PROXMOX_TOKEN = "00000000-0000-0000-0000-000000000000"
-PROXMOX_NODE = "nodename"
