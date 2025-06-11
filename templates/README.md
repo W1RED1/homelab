@@ -1,5 +1,6 @@
 # Template build files
 Various configs/scripts for automating template build processes
+  *  Update `templates.auto.pkrvars.hcl` before building
   *  [`packer`](https://developer.hashicorp.com/packer) with [Proxmox integration](https://developer.hashicorp.com/packer/integrations/hashicorp/proxmox) leverages the Proxmox API
   *  [Cloudbase-Init](https://cloudbase.it/cloudbase-init/) provides cloud-init functionality for Windows hosts
   *  `build.sh` downloads/stages needed files and starts packer build
