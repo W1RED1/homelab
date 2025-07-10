@@ -1,7 +1,7 @@
-source "proxmox-iso" "win11" {
-  vm_name = "WIN-11-TEMPLATE-VM"
-  template_name = "WIN-11-TEMPLATE"
-  template_description = "Windows 11 template generated with packer (${var.TEMPLATE_TIMESTAMP})"
+source "proxmox-iso" "win2k25" {
+  vm_name = "WIN-2K25-TEMPLATE-VM"
+  template_name = "WIN-2K25-TEMPLATE"
+  template_description = "Windows Server 2025 template generated with packer (${var.TEMPLATE_TIMESTAMP})"
   pool = var.TEMPLATE_POOL
   os = "win11"
   qemu_agent = true
@@ -34,12 +34,6 @@ source "proxmox-iso" "win11" {
     efi_type = "4m"
   }
 
-  # tpm config, win11 requirement
-  tpm_config {
-    tpm_storage_pool = "local-zfs"
-    tpm_version = "v2.0"
-  }
-
   # network adapter config
   network_adapters {
     model = "virtio"
@@ -52,7 +46,7 @@ source "proxmox-iso" "win11" {
   disks {
     type = "scsi"
     storage_pool = "local-zfs"
-    disk_size = "52G"
+    disk_size = "50G"
     cache_mode = "writeback"
     format = "raw"
     exclude_from_backup = true
@@ -66,13 +60,13 @@ source "proxmox-iso" "win11" {
 
   # iso configs
   boot_iso {
-    iso_file = "local:iso/Windows-11-eval-amd64.iso"
+    iso_file = "local:iso/Windows-Server-2025-eval-amd64.iso"
     unmount = true    
   }
 
   additional_iso_files {
     cd_files = [
-      "/tmp/win11/*",
+      "/tmp/2k25/*",
       "/tmp/CloudbaseInitSetup_Stable_x64.msi",
       "../scripts/Install-WindowsUpdates.ps1",
       "../scripts/Install-OpenSSH.ps1",
@@ -92,7 +86,7 @@ source "proxmox-iso" "win11" {
 }
 
 build {
-  sources = ["source.proxmox-iso.win11"]
+  sources = ["source.proxmox-iso.win2k25"]
 
   provisioner "powershell" {
     script = "../scripts/Create-InfraUser.ps1"

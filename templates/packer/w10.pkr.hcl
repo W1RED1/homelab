@@ -66,7 +66,7 @@ source "proxmox-iso" "win10" {
 
   additional_iso_files {
     cd_files = [
-      "/tmp/win10/*",
+      "/tmp/w10/*",
       "/tmp/CloudbaseInitSetup_Stable_x64.msi",
       "../scripts/Install-WindowsUpdates.ps1",
       "../scripts/Install-OpenSSH.ps1",
