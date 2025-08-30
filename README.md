@@ -4,7 +4,7 @@ Sets of configs/scripts for automating builds of lab environments
   *  `templates` contents used to build Proxmox templates of Windows 10/11/2k25 
   *  `labs` contents breaks out into build files for various lab environments
 
-IaC build processes may generate secrets which may need to be remembered for idempotency  
+IaC build processes may generate secrets which need to be remembered for idempotency  
 Bootstrap script generates a password-protected GPG key which is used to initialize a password store  
 Persistent storage mechanism is needed to carry these between containers which may be destroyed over time  
 
