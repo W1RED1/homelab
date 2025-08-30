@@ -4,9 +4,9 @@ Sets of configs/scripts for automating builds of lab environments
   *  `templates` contents used to build Proxmox templates of Windows 10/11/2k25 
   *  `labs` contents breaks out into build files for various lab environments
 
-Initial IaC build processes generate secrets such as passwords which may need to be remembered for idempotency
-Bootstrap script generates a password-protected GPG key which is used to initialize a password store
-Some persistent storage mechanism is needed to carry these between containers which may be destroyed over time
+Initial IaC build processes generate secrets such as passwords which may need to be remembered for idempotency  
+Bootstrap script generates a password-protected GPG key which is used to initialize a password store  
+Some persistent storage mechanism is needed to carry these between containers which may be destroyed over time  
 
 Running new instances of the docker image will create a new volume by default:
 ```
