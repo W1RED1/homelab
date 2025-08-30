@@ -8,16 +8,17 @@ export ANSIBLE_PRIVATE_KEY_FILE=$(pwd)/infra_id_ed25519
 
 echo '[*] Lauching terraform...'
 terraform -chdir=terraform/ init
-terraform -chdir=terraform/ apply -auto-approve
+terraform -chdir=terraform/ apply
 
-# password store holds generated credentials until container is destroyed
-echo '[*] Initializing password store...'
-gpg --batch --passphrase '' --quick-gen-key $(whoami)
-pass init $(gpg --list-secret-keys --with-colons | awk -F: '$1 == "fpr" {print $10}' | head -1)
+echo '[*] Resolving initial domain passwords...'
+if ! pass show BASIC-AD/DEFAULT_DA_USER_PASSWORD >/dev/null 2>&1; then
+        pass generate BASIC-AD/DEFAULT_DA_USER_PASSWORD 25
+fi
 
-echo '[*] Generating initial domain passwords...'
-pass generate -f BASIC-AD/DEFAULT_DA_USER_PASSWORD 25
-pass generate -f BASIC-AD/DOMAIN_SAFE_MODE_PASSWORD 25
+if ! pass show BASIC-AD/DOMAIN_SAFE_MODE_PASSWORD >/dev/null 2>&1; then
+        pass generate BASIC-AD/DOMAIN_SAFE_MODE_PASSWORD 25
+fi
+
 export DEFAULT_DA_USER_PASSWORD=$(pass BASIC-AD/DEFAULT_DA_USER_PASSWORD)
 export DOMAIN_SAFE_MODE_PASSWORD=$(pass BASIC-AD/DOMAIN_SAFE_MODE_PASSWORD)
 

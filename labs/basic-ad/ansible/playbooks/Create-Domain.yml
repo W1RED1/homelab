@@ -11,9 +11,11 @@
     -  microsoft.ad.domain:
          dns_domain_name: "{{ DOMAIN_NAME }}"
          safe_mode_password: "{{ lookup('ansible.builtin.env', 'DOMAIN_SAFE_MODE_PASSWORD') }}"
+       register: domain_install
 
     -  ansible.windows.win_reboot:
          post_reboot_delay: 900
+       when: domain_install.reboot_required
 
     -  microsoft.ad.domain_controller:
          dns_domain_name: "{{ DOMAIN_NAME }}"
